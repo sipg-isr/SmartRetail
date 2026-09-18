@@ -11,57 +11,36 @@ This page collects the open-source software, datasets and research code produced
 ## About the project
 
 **PT Smart Retail — *Portugal as a reference for the new generation of smart and autonomous retail*** is a
-mobilizing agenda for business innovation funded by the Portuguese Recovery and Resilience Plan (PRR,
-Notice N.º 02/C05-i01/2022) and led by **Senseidata, S.A. (Sensei)**. It brings together industrial,
-technological, scientific and end-user partners along the whole retail value chain, with the goal of
-designing, demonstrating and industrializing a new generation of autonomous retail formats:
-
-- **PPS 1 — Autonomous store**
-- **PPS 2 — Pod** (plug & play modular store)
-- **PPS 3 — Zero Waste Cabinet**
-- **PPS 4 — Technological add-ons to improve the user experience**
-- **PPS 5 — Support and peripheral technologies** (continual learning, new representations)
-
-The agenda spans new retail formats and production lines, smart shelves and cellulose weight sensors,
-interactive surfaces, seamless payments, 5G connectivity, collaborative robotics, EV charging and — the
-part addressed here — the **computer vision and machine learning stack** that makes a store able to see,
-understand and react to what happens inside it.
+mobilizing agenda for business innovation funded by the Portuguese Recovery and Resilience Plan (PRR) and
+led by **[Sensei](https://www.sensei.tech)**. It brings together industrial, technological, scientific and
+end-user partners along the whole retail value chain to design, demonstrate and industrialize a new
+generation of autonomous retail formats — from full autonomous stores to modular pods and smart cabinets —
+together with the supporting technologies that make them possible: smart shelves and sensors, interactive
+surfaces, seamless payments, connectivity, robotics, and the computer vision and machine learning stack
+that lets a store see and understand what happens inside it.
 
 ## Contribution of IST / IST-ID / ISR
 
-Our teams lead **Task 2.4 — *Sustainable processing for computer vision ensuring compliance with privacy
-guidelines*** (with INESC-ID) and **Task 4.6 — *New algorithms for continuous and incremental learning for
-automatic object recognition***, contributing across PPS 1, 2, 3 and 5.
+An autonomous store is an unusually dense sensing infrastructure — hundreds to thousands of cameras,
+crowded scenes, severe occlusions, a large and constantly changing product catalogue — under strict
+privacy and energy budgets. Our contribution is the perception and representation stack that makes this
+tractable, and it maps onto the four groups of repositories below. **Calibration** comes first: VICAN
+brought the calibration of networks with thousands of cameras and millions of images down from hundreds of
+hours to a few seconds, which is what makes a densely instrumented store deployable at all. **Edge
+computing** turns those algorithms into services: containerized, independently deployable inference boxes
+and a web layer that let non-specialists compose and run vision pipelines on store hardware, at the edge or
+in the cloud.
 
-The central challenge is that an autonomous store is an extremely dense sensing infrastructure: hundreds
-to thousands of cameras, crowded scenes, severe occlusions, large and constantly changing product
-catalogues — and strict privacy and energy constraints. Our work targets a class of computer vision
-algorithms that are **fast, cheap to run, privacy-aware and semantically well-behaved**:
-
-- **Large-scale camera network calibration.** VICAN reduced the calibration of networks with thousands of
-  cameras and millions of images from hundreds of hours to a few seconds, by mapping the problem onto a
-  bipartite pose-graph whose complexity depends on the *number of cameras* rather than on the number of
-  observations. It is a key enabling technology for deployments such as the Leiria automated supermarket.
-- **Synthetic scenario generation.** A realistic simulator that builds entire virtual supermarkets, places
-  camera networks, and renders calibration and shopper-behaviour data — bypassing hardware and GDPR
-  constraints, and enabling cost/accuracy trade-off studies before any camera is installed.
-- **Human behaviour understanding under occlusion.** Body and head pose estimation robust to the
-  self-, object- and out-of-frame occlusions that characterize shelf-dense retail spaces, together with the
-  BlendMimic3D benchmark and a systematic evaluation of 2D-to-3D lifting models under realistic
-  occlusion noise.
-- **New representations for recognition and continual learning.** Embeddings in which concepts are linear
-  subspaces: hierarchy becomes subspace inclusion, generality becomes dimension, and logical composition
-  (conjunction, disjunction, **negation**) becomes linear algebra. Because new concepts can be spanned in
-  directions orthogonal to existing ones, these representations are a natural substrate for **continual
-  learning** without catastrophic forgetting — essential for catalogues that change every week.
-- **Generative models with controllable, identity-preserving output.** Spectral guidance for efficient
-  control of diffusion models, and identity-preserving face inpainting.
-- **Large-scale distributed learning.** Communication-efficient vertical federated learning (EF-VFL) with
-  error feedback, for training across distributed store infrastructures.
-- **Algorithms-as-a-service and edge computing.** An open-source AI platform
-  ([visionist.sipg.tecnico.ulisboa.pt](https://visionist.sipg.tecnico.ulisboa.pt)) that lets non-specialists
-  compose and deploy vision pipelines — object detection, tracking, 3D reconstruction, VICAN calibration —
-  on their own infrastructure, in the cloud or at the edge, backed by a dedicated HPC cluster at IST/IST-ID.
+On top of that infrastructure we work on **behaviour understanding and scene perception** — body and head
+pose estimation robust to the self-, object- and out-of-frame occlusions typical of shelf-dense spaces,
+synthetic benchmarks to train and evaluate it, identity-preserving face reconstruction, and models of how
+people subjectively perceive a space — and on **representation and continual learning**, where concepts are
+embedded as linear subspaces rather than points. There, hierarchy is subspace inclusion, generality is
+dimension, and logical composition — including negation, which CLIP-style models handle poorly — is linear
+algebra. Because new concepts span directions orthogonal to existing ones, the catalogue can grow
+incrementally without overwriting what the model already knows, which is the property a retail inventory
+that changes every week actually needs. The same geometric view carries over to the controllable generative
+models used to synthesize training data.
 
 ---
 
@@ -109,6 +88,12 @@ models and an evaluation protocol across occlusion levels. Head orientation is a
 attention — which shelf, which product, for how long — in exactly the crowded, partially occluded views
 that store camera networks produce.
 
+> *J. Celestino, M. Marques, J. C. Nascimento, J. P. Costeira, "2D image head pose estimation via latent
+> space regression under occlusion settings", Pattern Recognition, 137:109288, 2023.*
+>
+> *J. Celestino, M. Marques, J. C. Nascimento, "Latent Embedding Clustering for Occlusion Robust Head Pose
+> Estimation", IEEE Int. Conf. on Automatic Face and Gesture Recognition (FG), pp. 1–9, 2024.*
+
 #### [`BlendMimic3D`](https://github.com/sipg-isr/BlendMimic3D)
 
 A synthetic dataset built in Blender for 3D Human Pose Estimation under occlusion: 128 videos, 4 camera
@@ -129,7 +114,10 @@ control branch is trained; the objective combines reconstruction, identity-consi
 losses. Evaluated on CelebA-HQ, FFHQ and the new E-Mask dataset of identity-critical occlusions.
 In a retail setting this matters twice over: reconstructing partially occluded faces captured by ceiling
 cameras, and — read in reverse — controlling exactly what identity information a generative model retains,
-which feeds directly into the privacy-compliant processing goal of Task 2.4.
+which is central to privacy-compliant processing.
+
+> *J. Santos, C. Santiago, M. Marques, "Face Inpainting with Identity Preserving Latent Diffusion Models",
+> arXiv:2605.16696, 2026.*
 
 #### [`cycling_subjective_safety`](https://github.com/sipg-isr/cycling_subjective_safety)
 
