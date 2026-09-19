@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Computer vision and representation learning for autonomous retail: the contribution of IST, IST-ID and ISR (SIPG) to the PT Smart Retail agenda. Eleven open-source repositories.">
+<meta name="description" content="Computer vision and representation learning for autonomous retail: the contribution of IST, IST-ID and ISR (SIPG) to the PT Smart Retail agenda. Twelve open-source repositories.">
 <meta name="color-scheme" content="light dark">
 <meta property="og:title" content="PT Smart Retail — IST / IST-ID / ISR">
 <meta property="og:description" content="Camera network calibration, edge deployment, occlusion-robust perception and subspace representations for autonomous retail.">
@@ -476,7 +476,7 @@
 <div class="hero" id="top">
   <canvas id="net" aria-hidden="true"></canvas>
   <div class="wrap">
-    <p class="eyebrow">Signal and Image Processing Group · ISR · Instituto Superior Técnico <b>— 11 open repositories</b></p>
+    <p class="eyebrow">Signal and Image Processing Group · ISR · Instituto Superior Técnico <b>— 12 open repositories</b></p>
     <h1>
       Teaching a store to see.
       <em>Computer vision and representation learning for autonomous retail — the contribution of IST, IST-ID and ISR to the PT Smart Retail agenda.</em>
@@ -771,10 +771,35 @@
           all of that into distances chosen for accuracy alone, so when a classifier fails it can fail
           arbitrarily. Embedding concepts as linear subspaces restores the structure — and, because a new
           concept can span directions orthogonal to the old ones, it makes incremental growth of the
-          catalogue possible without catastrophic forgetting.
+          catalogue possible without catastrophic forgetting. The recurring lesson below is that the gains
+          come from the structure imposed on the embedding, not from the exotic geometry it is embedded in.
         </p>
 
         <div class="repos">
+          <article class="repo">
+            <div class="repo-head">
+              <a class="repo-name" href="https://github.com/sipg-isr/hyperbolic">hyperbolic</a>
+              <span class="repo-role">WACV 2024</span>
+            </div>
+            <p>
+              Code for <strong>Hyperbolic vs Euclidean Embeddings in Few-Shot Learning: Two Sides of the
+              Same Coin</strong>, the study that settles the geometry everything below is built on.
+              Hierarchical data is widely held to call for hyperbolic embeddings, but their optimization is
+              numerically fragile. Analysing prototypical hyperbolic networks, we show that in high
+              dimensions the embeddings drift to the boundary of the Poincaré ball and that the best
+              few-shot results are all attained at a <strong>common hyperbolic radius</strong> — so the gain
+              credited to curvature is really a gain from constraining the norm. A <strong>fixed-radius
+              encoder with the plain Euclidean metric</strong> matches or beats the hyperbolic benchmarks,
+              regardless of embedding dimension. For a catalogue that has to absorb new products from a
+              handful of examples, it means the hierarchy can be carried by a constraint that is cheap and
+              stable to train, rather than by a curved space that is neither.
+            </p>
+            <p class="cite">
+              G. Moreira, M. Marques, J. P. Costeira, A. G. Hauptmann, “Hyperbolic vs Euclidean Embeddings
+              in Few-Shot Learning: Two Sides of the Same Coin”, WACV 2024.
+            </p>
+          </article>
+
           <article class="repo">
             <div class="repo-head">
               <a class="repo-name" href="https://github.com/sipg-isr/visualsemantic-subspaces">visualsemantic-subspaces</a>
@@ -899,7 +924,7 @@
       <img src="prr.jpg" alt="Funded by the Recovery and Resilience Plan (PRR), República Portuguesa and the European Union — NextGenerationEU">
     </div>
 
-    <p class="colophon">PT SMART RETAIL — IST / IST-ID / ISR · 11 repositories, openly licensed by their authors</p>
+    <p class="colophon">PT SMART RETAIL — IST / IST-ID / ISR · 12 repositories, openly licensed by their authors</p>
   </div>
 </footer>
 
