@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Computer vision and representation learning for autonomous retail: the contribution of IST, IST-ID and ISR (SIPG) to the PT Smart Retail agenda. Eleven open-source repositories.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="PT Smart Retail — IST / IST-ID / ISR">
+<meta property="og:description" content="Camera network calibration, edge deployment, occlusion-robust perception and subspace representations for autonomous retail.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="prr.jpg">
+<title>PT Smart Retail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+
+<style>
+  :root {
+    --paper:      #F3F5F4;
+    --surface:    #FFFFFF;
+    --text:       #1A2129;
+    --muted:      #5B6B78;
+    --line:       #D7DEDC;
+    --line-soft:  #E7ECEA;
+    --accent:     #0B6E99;
+    --accent-ink: #085775;
+    --accent-bg:  #E4EFF4;
+    --marker:     #B97C12;
+
+    --ink:        #0C1319;
+    --ink-2:      #131D25;
+    --on-ink:     #EDF2F3;
+    --on-ink-dim: #93A6B1;
+    --on-ink-line:#24333D;
+
+    --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --f-body:    "Source Serif 4", Georgia, "Times New Roman", serif;
+    --f-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+    --wrap: 1140px;
+    --col: 68ch;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #0D1318;
+      --surface:    #141D24;
+      --text:       #E4EAEE;
+      --muted:      #95A5B1;
+      --line:       #263239;
+      --line-soft:  #1C262D;
+      --accent:     #58B6DB;
+      --accent-ink: #8FD1EC;
+      --accent-bg:  #11242E;
+      --marker:     #E0AA3E;
+
+      --ink:        #080D12;
+      --ink-2:      #0F171D;
+      --on-ink:     #E8EEF0;
+      --on-ink-dim: #8798A3;
+      --on-ink-line:#1E2B33;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:      #0D1318;
+    --surface:    #141D24;
+    --text:       #E4EAEE;
+    --muted:      #95A5B1;
+    --line:       #263239;
+    --line-soft:  #1C262D;
+    --accent:     #58B6DB;
+    --accent-ink: #8FD1EC;
+    --accent-bg:  #11242E;
+    --marker:     #E0AA3E;
+
+    --ink:        #080D12;
+    --ink-2:      #0F171D;
+    --on-ink:     #E8EEF0;
+    --on-ink-dim: #8798A3;
+    --on-ink-line:#1E2B33;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--text);
+    font-family: var(--f-body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:hover { color: var(--accent-ink); }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1, h2, h3, .ui { font-family: var(--f-display); }
+  h2, h3 { text-wrap: balance; }
+
+  .wrap {
+    max-width: var(--wrap);
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+
+  /* ---------- top bar ---------- */
+
+  .topbar {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 20;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .topbar .wrap {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-height: 52px;
+  }
+  .mark {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--text);
+    text-decoration: none;
+    white-space: nowrap;
+    flex: none;
+  }
+  .mark span { color: var(--accent); }
+  nav.sections {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-left: auto;
+  }
+  nav.sections::-webkit-scrollbar { display: none; }
+  nav.sections a {
+    font-family: var(--f-display);
+    font-size: 12.5px;
+    letter-spacing: .04em;
+    color: var(--muted);
+    text-decoration: none;
+    white-space: nowrap;
+    padding-block: 15px;
+    border-bottom: 2px solid transparent;
+  }
+  nav.sections a:hover { color: var(--text); }
+  nav.sections a.active { color: var(--text); border-bottom-color: var(--accent); }
+
+  /* ---------- hero ---------- */
+
+  .hero {
+    position: relative;
+    background: var(--ink);
+    color: var(--on-ink);
+    overflow: hidden;
+    border-bottom: 1px solid var(--on-ink-line);
+  }
+  #net {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  /* scrim: keeps the network legible on the right, type legible on the left */
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(97deg,
+      var(--ink) 0%,
+      var(--ink) 26%,
+      color-mix(in srgb, var(--ink) 72%, transparent) 52%,
+      transparent 86%);
+  }
+  .hero .wrap {
+    position: relative;
+    z-index: 1;
+    padding-block: 64px 56px;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--on-ink-dim);
+    margin: 0 0 20px;
+  }
+  .eyebrow b { color: var(--marker); font-weight: 500; }
+  h1 {
+    margin: 0;
+    font-size: clamp(2.3rem, 6.2vw, 4rem);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -.025em;
+    max-width: 16ch;
+  }
+  h1 em {
+    display: block;
+    font-family: var(--f-body);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.05rem, 2.4vw, 1.45rem);
+    letter-spacing: 0;
+    line-height: 1.35;
+    color: var(--on-ink-dim);
+    margin-top: 18px;
+    max-width: 40ch;
+  }
+  .standfirst {
+    margin: 26px 0 0;
+    max-width: 52ch;
+    font-size: 1.06rem;
+    color: #C9D6DC;
+  }
+  .herolinks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 30px;
+  }
+  .herolinks a {
+    font-family: var(--f-display);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: .01em;
+    text-decoration: none;
+    color: var(--on-ink);
+    border: 1px solid var(--on-ink-line);
+    background: color-mix(in srgb, var(--ink-2) 70%, transparent);
+    padding: 9px 15px;
+    border-radius: 3px;
+  }
+  .herolinks a:hover { border-color: var(--marker); color: #fff; }
+  .herolinks a.primary { background: var(--marker); border-color: var(--marker); color: #1A1204; }
+  .herolinks a.primary:hover { filter: brightness(1.08); }
+
+  /* ---------- content ---------- */
+
+  main .wrap { padding-block: 0; max-width: 960px; }
+
+  section { border-top: 1px solid var(--line-soft); }
+  section:first-of-type { border-top: 0; }
+  .sec-inner { padding-block: 54px; max-width: var(--col); }
+
+  .sec-label {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .sec-num {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: .06em;
+  }
+  .sec-kicker {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  h2 {
+    margin: 0 0 20px;
+    font-size: clamp(1.5rem, 3.4vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -.018em;
+    line-height: 1.16;
+  }
+  p { margin: 0 0 18px; }
+  p:last-child { margin-bottom: 0; }
+
+  .lede { font-size: 1.1rem; }
+
+  /* pull figure inside prose */
+  .figure-note {
+    margin: 26px 0;
+    padding: 18px 20px;
+    border-left: 2px solid var(--marker);
+    background: var(--surface);
+    font-family: var(--f-display);
+    font-size: 1.02rem;
+    line-height: 1.45;
+  }
+  .figure-note b {
+    font-family: var(--f-mono);
+    font-weight: 500;
+    color: var(--marker);
+    font-size: .95em;
+  }
+
+  /* ---------- repo entries ---------- */
+
+  .repos { display: flex; flex-direction: column; gap: 0; margin-top: 30px; }
+
+  article.repo {
+    padding-block: 26px;
+    border-top: 1px solid var(--line);
+  }
+  article.repo:last-child { border-bottom: 1px solid var(--line); }
+
+  .repo-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px 14px;
+    margin-bottom: 10px;
+  }
+  .repo-name {
+    font-family: var(--f-mono);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .repo-name:hover { border-bottom-color: currentColor; }
+  .repo-name::before { content: "sipg-isr / "; color: var(--muted); }
+  .repo-role {
+    font-family: var(--f-display);
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 2px 7px;
+  }
+  .repo p { font-size: .98rem; margin-bottom: 12px; }
+
+  .transfer {
+    margin: 14px 0 12px;
+    padding: 13px 16px;
+    background: var(--accent-bg);
+    border-radius: 3px;
+    font-size: .94rem;
+    line-height: 1.55;
+  }
+  .transfer .tag {
+    font-family: var(--f-display);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .cite {
+    font-size: .88rem;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: 10px 0 0;
+    padding-left: 14px;
+    border-left: 1px solid var(--line);
+  }
+  .cite + .cite { margin-top: 7px; }
+  .cite a { font-style: normal; }
+
+  /* ---------- platform ---------- */
+
+  .platform {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 26px;
+    margin-top: 8px;
+  }
+  .platform h3 {
+    margin: 0 0 10px;
+    font-size: 1.12rem;
+    font-weight: 600;
+    letter-spacing: -.01em;
+  }
+  .platform p { font-size: .98rem; }
+  .platform a.big {
+    font-family: var(--f-mono);
+    font-size: .95rem;
+    word-break: break-all;
+  }
+
+  /* ---------- footer ---------- */
+
+  footer {
+    background: var(--ink);
+    color: var(--on-ink-dim);
+    border-top: 1px solid var(--on-ink-line);
+    margin-top: 10px;
+  }
+  footer .wrap { padding-block: 44px 40px; }
+  footer h3 {
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--on-ink);
+    margin: 0 0 14px;
+    font-weight: 600;
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 34px;
+  }
+  footer p { font-size: .93rem; line-height: 1.6; }
+  footer a { color: #A9CBDB; }
+  footer a:hover { color: #fff; }
+  .funding-img {
+    margin-top: 22px;
+    background: #fff;
+    border-radius: 3px;
+    padding: 12px 16px;
+    max-width: 560px;
+  }
+  .funding-img img { display: block; width: 100%; height: auto; }
+  .colophon {
+    margin-top: 34px;
+    padding-top: 18px;
+    border-top: 1px solid var(--on-ink-line);
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    letter-spacing: .03em;
+    color: var(--on-ink-dim);
+  }
+
+  @media (max-width: 720px) {
+    body { font-size: 16.5px; }
+    .hero .wrap { padding-block: 46px 42px; }
+    .sec-inner { padding-block: 42px; }
+    .mark { font-size: 12px; }
+    #net { opacity: .32; }
+    .hero::after {
+      background: linear-gradient(180deg,
+        color-mix(in srgb, var(--ink) 88%, transparent) 0%,
+        color-mix(in srgb, var(--ink) 72%, transparent) 100%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+  html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <a class="mark" href="#top">PT Smart Retail <span>/ SIPG</span></a>
+    <nav class="sections" aria-label="Sections">
+      <a href="#overview">Overview</a>
+      <a href="#calibration">Calibration</a>
+      <a href="#edge">Edge</a>
+      <a href="#perception">Perception</a>
+      <a href="#representation">Representation</a>
+      <a href="#platform">Platform</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero" id="top">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <p class="eyebrow">Signal and Image Processing Group · ISR · Instituto Superior Técnico <b>— 11 open repositories</b></p>
+    <h1>
+      Teaching a store to see.
+      <em>Computer vision and representation learning for autonomous retail — the contribution of IST, IST-ID and ISR to the PT Smart Retail agenda.</em>
+    </h1>
+    <p class="standfirst">
+      An autonomous store is an unusually dense sensing infrastructure: hundreds to thousands of cameras,
+      crowded aisles, severe occlusions and a catalogue that changes every week — under strict privacy
+      and energy budgets. This is the perception and representation stack that makes it tractable.
+    </p>
+    <div class="herolinks">
+      <a class="primary" href="https://github.com/sipg-isr">Code on GitHub</a>
+      <a href="https://visionist.sipg.tecnico.ulisboa.pt">AI platform</a>
+      <a href="https://www.sensei.tech">Sensei</a>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+
+    <section id="overview">
+      <div class="sec-inner">
+        <div class="sec-label">
+          <span class="sec-num">00</span>
+          <span class="sec-kicker">The agenda</span>
+        </div>
+        <h2>Portugal as a reference for the new generation of smart and autonomous retail</h2>
+        <p class="lede">
+          <strong>PT Smart Retail</strong> is a mobilizing agenda for business innovation funded by the
+          Portuguese Recovery and Resilience Plan and led by <a href="https://www.sensei.tech">Sensei</a>.
+          It brings together industrial, technological, scientific and end-user partners along the whole
+          retail value chain to design, demonstrate and industrialize a new generation of autonomous retail
+          formats — from full autonomous stores to modular pods and smart cabinets — together with the
+          supporting technologies that make them possible: smart shelves and sensors, interactive surfaces,
+          seamless payments, connectivity, robotics, and the computer vision and machine learning stack
+          that lets a store understand what happens inside it.
+        </p>
+        <p>
+          Our contribution is that last part, and it is organized here in four layers, from the
+          infrastructure upward. <strong>Calibration</strong> comes first: VICAN brought the calibration of
+          networks with thousands of cameras and millions of images down from hundreds of hours to a few
+          seconds, which is what makes a densely instrumented store deployable at all.
+          <strong>Edge computing</strong> turns those algorithms into services — containerized, independently
+          deployable inference boxes and a web layer that let non-specialists compose and run vision
+          pipelines on store hardware, at the edge or in the cloud.
+        </p>
+        <p>
+          On top of that infrastructure sits <strong>behaviour understanding and scene perception</strong>:
+          body and head pose estimation robust to the self-, object- and out-of-frame occlusions typical of
+          shelf-dense spaces, synthetic benchmarks to train and evaluate it, identity-preserving face
+          reconstruction, and models of how people subjectively perceive a space. And above that,
+          <strong>representation and continual learning</strong>, where concepts are embedded as linear
+          subspaces rather than points. There, hierarchy is subspace inclusion, generality is dimension, and
+          logical composition — including negation, which CLIP-style models handle poorly — is linear
+          algebra. Because new concepts span directions orthogonal to existing ones, the catalogue can grow
+          incrementally without overwriting what the model already knows, which is the property a retail
+          inventory that changes every week actually needs. The same geometric view carries over to the
+          controllable generative models used to synthesize training data.
+        </p>
+      </div>
+    </section>
+
+    <section id="calibration">
+      <div class="sec-inner">
+        <div class="sec-label">
+          <span class="sec-num">01</span>
+          <span class="sec-kicker">Network camera calibration</span>
+        </div>
+        <h2>Where every camera is, to the millimetre</h2>
+        <p>
+          Calibrating a camera network means recovering the position and orientation of every camera in a
+          common frame. The literature solves this by borrowing Structure-from-Motion tooling — bundle
+          adjustment, COLMAP, OpenSfM — whose cost grows with the number of observations. At retail scale
+          that is hundreds of hours of computation for a single store.
+        </p>
+
+        <div class="figure-note">
+          Mapping calibration onto a bipartite pose graph makes the cost depend on the number of
+          <em>cameras</em>, not the number of images.
+          <b>hundreds of hours → seconds</b>
+        </div>
+
+        <div class="repos">
+          <article class="repo">
+            <div class="repo-head">
+              <a class="repo-name" href="https://github.com/sipg-isr/vican">vican</a>
+              <span class="repo-role">Algorithm · ICRA 2024</span>
+            </div>
+            <p>
+              Reference implementation of <strong>VICAN — Very Efficient Calibration Algorithm for Large
+              Camera Networks</strong>. A primal–dual bipartite pose-graph solver that jointly calibrates a
+              marker object and estimates the extrinsic poses of every camera in the network from ArUco
+              marker observations. Includes datasets and Google Colab test scripts.
+            </p>
+            <p class="cite">
+              G. Moreira, M. Marques, J. P. Costeira, A. Hauptmann, “VICAN: Very Efficient Calibration
+              Algorithm for Large Camera Networks”, IEEE ICRA 2024.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="edge">
+      <div class="sec-inner">
+        <div class="sec-label">
+          <span class="sec-num">02</span>
+          <span class="sec-kicker">Edge computing</span>
+        </div>
+        <h2>Algorithms as services, deployable in seconds</h2>
+        <p>
+          A research algorithm is only useful in a store if someone without a PhD can deploy it on the
+          hardware that is already there. Both repositories below exist to close that gap: reproducible
+          containers, a shared protocol, and a browser you can point at them.
+        </p>
+
+        <div class="repos">
+          <article class="repo">
+            <div class="repo-head">
+              <a class="repo-name" href="https://github.com/sipg-isr/vican_on_docker">vican_on_docker</a>
+              <span class="repo-role">Deployment</span>
+            </div>
+            <p>
+              Containerized deployment of VICAN. Ships the object-calibration and camera-pose-estimation
+              entry points inside a Docker image, plus helpers for ArUco ID detection and multi-camera
+              configuration generation — turning the calibration algorithm into a dependency-free service
+              that can be provisioned on store hardware in seconds.
+            </p>
+          </article>
+
+          <article class="repo">
+            <div class="repo-head">
+              <a class="repo-name" href="https://github.com/sipg-isr/boxes-WebUI">boxes-WebUI</a>
+              <span class="repo-role">Platform</span>
+            </div>
+            <p>
+              The web layer of <strong>boxes</strong>, a fleet of independent Dockerized AI inference
+              services that talk over a shared gRPC protocol with no central orchestrator. Each “box” is a
+              self-contained container; the WebUI exposes them declaratively over HTTP so pipelines can be
+              composed from a browser. Bundled boxes include YOLOv8 (detection and tracking), TAPNext (point
+              tracking), LangSAM (text-guided segmentation), CLIP and Sentence-BERT (multimodal embeddings),
+              VGGT (3D reconstruction), MoGe-3 (monocular depth and normals) and OpenCV primitives.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="perception">
+      <div class="sec-inner">
+        <div class="sec-label">
+          <span class="sec-num">03</span>
+          <span class="sec-kicker">Behaviour understanding and scene perception</span>
+        </div>
+        <h2>People, mostly hidden behind shelves</h2>
+        <p>
+          Ceiling cameras in a shelf-dense store see fragments: a torso behind a display, a head turned
+          away, a body cut by the frame. Everything in this layer is built for that regime rather than for
+          the clean, centred subjects of standard benchmarks.
+        </p>
+
+        <div class="repos">
+          <article class="repo">
+            <div class="repo-head">
+              <a class="repo-name" href="https://github.com/sipg-isr/Occlusion_HPE">Occlusion_HPE</a>
+              <span class="repo-role">Models · datasets</span>
+            </div>
+            <p>
+              Head pose estimation robust to occluded faces, together with tools to synthesize realistic
+              occlusions in face datasets (300W-LP, BIWI, AFLW2000). Provides training scripts, inference
+              notebooks, pre-trained models and an evaluation protocol across occlusion levels. Head
+              orientation is a direct proxy for customer attention — which shelf, which product, for how
+              long — in exactly the partially occluded views a store camera network produces.
+            </p>
+            <p class="cite">
+              J. Celestino, M. Marques, J. C. Nascimento, J. P. Costeira, “2D image head pose estimation via
+              latent space regression under occlusion settings”, Pattern Recognition, 137:109288, 2023.
+            </p>
+            <p class="cite">
+              J. Celestino, M. Marques, J. C. Nascimento, “Latent Embedding Clustering for Occlusion Robust
+              Head Pose Estimation”, IEEE Int. Conf. on Automatic Face and Gesture Recognition (FG), 2024.
+            </p>
+          </article>
+
+          <article class="repo">
+            <div class="repo-head">
+              <a class="repo-name" href="https://github.com/sipg-isr/BlendMimic3D">BlendMimic3D</a>
+              <span class="repo-role">Synthetic dataset</span>
+            </div>
+            <p>
+              A synthetic dataset built in Blender for 3D human pose estimation under occlusion: 128 videos,
+              4 camera views, 3 subjects and 14 actions, with pixel-perfect 2D/3D keypoints, per-keypoint
+              occlusion flags and full camera calibration, in Human3.6M format. Scenarios range from simple
+              environments to a multi-person retail scene with shelves, covering self-, object- and
+              out-of-frame occlusion. Project page:
+              <a href="https://blendmimic3d.github.io/BlendMimic3D/">blendmimic3d.github.io</a>.
+            </p>
+            <p class="cite">
+              F. Lino et al., “3D Human Pose Estimation with Occlusions: Introducing BlendMimic3D Dataset
+              and GCN Refinement”, CVPR Workshops 2024.
+            </p>
+          </article>
+
+          <article class="repo">
+            <div class="repo-head">
+              <a class="repo-name" href="https://github.com/sipg-isr/ID-ControlNet">ID-ControlNet</a>
+              <span class="repo-role">Generative · identity</span>
+            </div>
+            <p>
+              Identity-preserving face inpainting. A ControlNet-style branch injects identity embeddings
+              from a frozen face recognition encoder (ArcFace) into a pretrained latent diffusion inpainting
+              model, so occluded facial regions are reconstructed as <em>that</em> person rather than
+              drifting to an average face. Only the small control branch is trained; the objective combines
+              reconstruction, identity-consistency and cycle/triplet losses. Evaluated on CelebA-HQ, FFHQ
+              and the new E-Mask dataset of identity-critical occlusions.
+            </p>
+            <div class="transfer">
+              <span class="tag">In a retail setting</span>
+              This matters twice over: reconstructing partially occluded faces captured by ceiling cameras,
+              and — read in reverse — controlling exactly what identity information a generative model
+              retains, which is central to privacy-compliant processing.
+            </div>
+            <p class="cite">
+              J. Santos, C. Santiago, M. Marques, “Face Inpainting with Identity Preserving Latent Diffusion
+              Models”, arXiv:2605.16696, 2026.
+            </p>
+          </article>
+
+          <article class="repo">
+            <div class="repo-head">
+              <a class="repo-name" href="https://github.com/sipg-isr/cycling_subjective_safety">cycling_subjective_safety</a>
+              <span class="repo-role">Perceived safety</span>
+            </div>
+            <p>
+              <strong>PCS-Net</strong>, a Siamese CNN that learns the <em>perceived</em> safety of cycling
+              environments directly from street imagery, trained on human pairwise image comparisons (with
+              ties) under a multi-loss framework. It lets planners rank streets and neighbourhoods by how
+              unsafe cyclists feel there, without surveys or in-loco interviews.
+            </p>
+            <div class="transfer">
+              <span class="tag">Not retail — but it transfers</span>
+              The same pairwise-comparison, learning-to-rank formulation can be trained on shoppers’
+              subjective judgements to score store layouts, aisle designs, shelf arrangements or storefronts
+              by perceived comfort, safety or attractiveness — from images alone, at store-network scale.
+            </div>
+            <p class="cite">
+              M. Costa, M. Marques, C. L. Azevedo, F. W. Siebert, F. Moura, “Which Cycling Environment
+              Appears Safer? Learning Cycling Safety Perceptions From Pairwise Image Comparisons”,
+              IEEE T-ITS, 26(2):1689–1700, 2025.
+            </p>
+          </article>
+
+          <article class="repo">
+            <div class="repo-head">
+              <a class="repo-name" href="https://github.com/sipg-isr/Eyetracking-cycling-safety-perception">Eyetracking-cycling-safety-perception</a>
+              <span class="repo-role">Gaze-aligned attention</span>
+            </div>
+            <p>
+              <strong>EG-PCS-Net</strong>, a Siamese Vision Transformer that jointly optimizes pairwise
+              safety classification, ranking and <em>attention–gaze alignment</em>: the transformer’s
+              self-attention is supervised with saliency maps derived from human eye-tracking, via a
+              KL-divergence loss, so the model looks where people actually look. Comes with the EG-PCS
+              dataset — 13,623 pairwise comparisons, 2,720 gaze maps, 251 survey participants and 26
+              laboratory eye-tracking sessions
+              (<a href="https://doi.org/10.5281/zenodo.21242459">Zenodo</a>).
+            </p>
+            <div class="transfer">
+              <span class="tag">Not retail — but it transfers</span>
+              Aligning model attention with shopper gaze yields interpretable models of what actually draws
+              attention on a shelf or a display, and gives an auditable answer to <em>why</em> a vision model
+              reached a given conclusion — a requirement for deploying AI in stores.
+            </div>
+            <p class="cite">
+              L. Perdigão, M. Costa, C. Santiago, M. Marques, “Learning to See Like Humans: Gaze-Aligned
+              Cycling Safety Prediction”, IEEE ITSC 2026.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="representation">
+      <div class="sec-inner">
+        <div class="sec-label">
+          <span class="sec-num">04</span>
+          <span class="sec-kicker">Representation and continual learning</span>
+        </div>
+        <h2>Concepts as subspaces, not points</h2>
+        <p>
+          A supermarket catalogue is a hierarchy with overlaps and exceptions: wine is a beverage and a
+          cooking ingredient; cereal is a breakfast food and a health product. Euclidean embeddings flatten
+          all of that into distances chosen for accuracy alone, so when a classifier fails it can fail
+          arbitrarily. Embedding concepts as linear subspaces restores the structure — and, because a new
+          concept can span directions orthogonal to the old ones, it makes incremental growth of the
+          catalogue possible without catastrophic forgetting.
+        </p>
+
+        <div class="repos">
+          <article class="repo">
+            <div class="repo-head">
+              <a class="repo-name" href="https://github.com/sipg-isr/visualsemantic-subspaces">visualsemantic-subspaces</a>
+              <span class="repo-role">AISTATS 2025</span>
+            </div>
+            <p>
+              Training code for <strong>Learning Visual-Semantic Subspace Representations</strong>. A
+              nuclear-norm loss aligns image embeddings with binary label vectors inside a subspace Boolean
+              lattice: each label is a subspace projector, an image lands in the intersection of the
+              subspaces of its concepts, and <strong>negation is the orthogonal complement</strong> of a
+              subspace. This fixes a known weakness of CLIP-style models, which struggle with negation
+              (“men with a beard but <em>without</em> glasses”). For a product catalogue it means errors stay
+              semantically meaningful — red wine confused with white wine, not with a cardigan.
+            </p>
+            <p class="cite">
+              G. Moreira, M. Marques, J. P. Costeira, A. G. Hauptmann, “Learning Visual-Semantic Subspace
+              Representations”, AISTATS 2025.
+            </p>
+          </article>
+
+          <article class="repo">
+            <div class="repo-head">
+              <a class="repo-name" href="https://github.com/sipg-isr/subembed">subembed</a>
+              <span class="repo-role">KDD 2026</span>
+            </div>
+            <p>
+              Code for <strong>Native Hierarchical and Compositional Representations with Subspace
+              Embeddings</strong>. Generality is the subspace dimension, hierarchy is subspace inclusion,
+              and logical composition emerges from linear algebra: conjunction as intersection, disjunction
+              as span, negation as orthogonal complement. A differentiable parameterization with soft
+              projection matrices lets the effective dimension of each concept be learned by gradient
+              descent, while staying compatible with optimized Euclidean vector search. Evaluated on WordNet
+              reconstruction and link prediction, HyperLex and SNLI.
+            </p>
+            <p class="cite">
+              G. Moreira, Z. Marinho, M. Marques, J. P. Costeira, C. Xiong, “Native Hierarchical and
+              Compositional Representations with Subspace Embeddings”, ACM SIGKDD (KDD) 2026.
+            </p>
+          </article>
+
+          <article class="repo">
+            <div class="repo-head">
+              <a class="repo-name" href="https://github.com/sipg-isr/spectralguidance">spectralguidance</a>
+              <span class="repo-role">ICML 2026</span>
+            </div>
+            <p>
+              Code for <strong>Spectral Guidance for Flexible and Efficient Control of Diffusion
+              Models</strong>. As data is corrupted by noise, high-frequency detail disappears while coarse
+              semantics persist; those surviving features are characterized as the leading singular
+              functions of a conditional expectation operator across diffusion timesteps. Learned offline
+              under orthogonality constraints, they form a time-indexed basis onto which arbitrary guidance
+              signals — class labels, CLIP embeddings, segmentation masks — are projected at inference time.
+              No task-specific denoiser retraining, no denoiser gradients during sampling:
+              <strong>+37 percentage points</strong> in conditional accuracy over the strongest training-free
+              baselines on CIFAR-10, with <strong>4× faster</strong> sampling. Useful for controllable
+              synthetic data generation — the same role a simulator plays for calibration and behaviour data.
+            </p>
+            <p class="cite">
+              G. Moreira, M. Marques, J. P. Costeira, C. Xiong, “Spectral Guidance for Flexible and Efficient
+              Control of Diffusion Models”, ICML 2026.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="platform">
+      <div class="sec-inner">
+        <div class="sec-label">
+          <span class="sec-num">05</span>
+          <span class="sec-kicker">Try it</span>
+        </div>
+        <h2>An open platform for algorithms as a service</h2>
+        <div class="platform">
+          <h3>visionist</h3>
+          <p>
+            Most of these algorithms are also available as ready-to-run pipelines — object detection,
+            tracking, 3D reconstruction, VICAN calibration — on our open-source platform, aimed at users
+            without specialized AI teams or large compute budgets. It runs on your own infrastructure, in
+            the cloud, or at the edge, and is backed by a dedicated HPC cluster at IST/IST-ID.
+          </p>
+          <p>
+            <a class="big" href="https://visionist.sipg.tecnico.ulisboa.pt">visionist.sipg.tecnico.ulisboa.pt</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h3>Who</h3>
+        <p>
+          Signal and Image Processing Group (SIPG)<br>
+          <a href="https://isr.tecnico.ulisboa.pt">Institute for Systems and Robotics</a><br>
+          <a href="https://tecnico.ulisboa.pt">Instituto Superior Técnico</a>, Universidade de Lisboa<br>
+          with <a href="https://ist-id.pt/en/">IST-ID</a>
+        </p>
+      </div>
+      <div>
+        <h3>Where</h3>
+        <p>
+          <a href="https://github.com/sipg-isr">github.com/sipg-isr</a><br>
+          <a href="https://visionist.sipg.tecnico.ulisboa.pt">visionist.sipg.tecnico.ulisboa.pt</a><br>
+          <a href="https://www.sensei.tech">sensei.tech</a> — agenda lead
+        </p>
+      </div>
+      <div>
+        <h3>Funding</h3>
+        <p>
+          Carried out under the PT Smart Retail mobilizing agenda, financed by the Recovery and Resilience
+          Plan (PRR) and by the European Union — NextGenerationEU.
+        </p>
+      </div>
+    </div>
+
+    <div class="funding-img">
+      <img src="prr.jpg" alt="Funded by the Recovery and Resilience Plan (PRR), República Portuguesa and the European Union — NextGenerationEU">
+    </div>
+
+    <p class="colophon">PT SMART RETAIL — IST / IST-ID / ISR · 11 repositories, openly licensed by their authors</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  /* ---- hero: a camera network watching a moving calibration marker ---- */
+  var canvas = document.getElementById('net');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cams = [], w = 0, h = 0, dpr = 1, raf = null;
+
+  function build() {
+    var rect = canvas.getBoundingClientRect();
+    w = rect.width; h = rect.height;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.max(1, Math.round(w * dpr));
+    canvas.height = Math.max(1, Math.round(h * dpr));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    /* ceiling grid in perspective: rows recede, spacing tightens */
+    cams = [];
+    var rows = 7, cols = 13;
+    for (var r = 0; r < rows; r++) {
+      var t = r / (rows - 1);
+      var y = h * (0.10 + 0.86 * Math.pow(t, 1.45));
+      var squeeze = 0.28 + 0.72 * Math.pow(t, 1.2);
+      for (var c = 0; c < cols; c++) {
+        var u = (c / (cols - 1)) - 0.5;
+        cams.push({
+          x: w * (0.5 + u * squeeze * 1.28),
+          y: y,
+          r: 0.9 + 1.9 * t,
+          a: 0.16 + 0.44 * t
+        });
+      }
+    }
+  }
+
+  function draw(time) {
+    ctx.clearRect(0, 0, w, h);
+
+    /* the calibration object drifting through the space */
+    var p = reduce ? 0.34 : (time % 26000) / 26000;
+    var mx = w * (0.16 + 0.68 * (0.5 + 0.5 * Math.sin(p * Math.PI * 2)));
+    var my = h * (0.46 + 0.34 * Math.sin(p * Math.PI * 4 + 1.1));
+
+    var reach = Math.max(w, h) * 0.34;
+
+    /* observation edges */
+    for (var i = 0; i < cams.length; i++) {
+      var cm = cams[i];
+      var dx = cm.x - mx, dy = cm.y - my;
+      var d = Math.sqrt(dx * dx + dy * dy);
+      if (d > reach) continue;
+      var k = 1 - d / reach;
+      ctx.beginPath();
+      ctx.moveTo(cm.x, cm.y);
+      ctx.lineTo(mx, my);
+      ctx.strokeStyle = 'rgba(224,170,62,' + (0.05 + 0.24 * k * k).toFixed(3) + ')';
+      ctx.lineWidth = 0.6;
+      ctx.stroke();
+    }
+
+    /* cameras */
+    for (var j = 0; j < cams.length; j++) {
+      var s = cams[j];
+      var dx2 = s.x - mx, dy2 = s.y - my;
+      var d2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+      var hot = d2 < reach ? 1 - d2 / reach : 0;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r + hot * 1.1, 0, Math.PI * 2);
+      ctx.fillStyle = hot > 0.02
+        ? 'rgba(224,170,62,' + (s.a * (0.5 + hot)).toFixed(3) + ')'
+        : 'rgba(126,164,182,' + (s.a * 0.62).toFixed(3) + ')';
+      ctx.fill();
+    }
+
+    /* the marker cube itself */
+    ctx.save();
+    ctx.translate(mx, my);
+    ctx.rotate(p * Math.PI * 2);
+    ctx.strokeStyle = 'rgba(224,170,62,0.62)';
+    ctx.lineWidth = 1.1;
+    ctx.strokeRect(-7, -7, 14, 14);
+    ctx.fillStyle = 'rgba(224,170,62,0.20)';
+    ctx.fillRect(-7, -7, 14, 14);
+    ctx.fillStyle = 'rgba(224,170,62,0.75)';
+    ctx.fillRect(-3, -3, 6, 6);
+    ctx.restore();
+  }
+
+  function loop(t) { draw(t); raf = requestAnimationFrame(loop); }
+
+  function start() {
+    build();
+    if (raf) cancelAnimationFrame(raf);
+    if (reduce) { draw(0); } else { raf = requestAnimationFrame(loop); }
+  }
+
+  start();
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(start, 180);
+  });
+
+  /* ---- section highlighting in the top bar ---- */
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.sections a'));
+  var map = {};
+  links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) { a.classList.remove('active'); });
+        var a2 = map[e.target.id];
+        if (a2) a2.classList.add('active');
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(map).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+  }
+})();
+</script>
+</body>
+</html>
