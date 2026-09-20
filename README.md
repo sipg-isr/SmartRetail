@@ -38,9 +38,6 @@ model already knows.
 calibrates networks of thousands of cameras from ArUco marker observations in seconds instead of hours,
 because its cost scales with the number of cameras rather than the number of images.
 
-> *G. Moreira, M. Marques, J. P. Costeira, A. Hauptmann, "VICAN: Very Efficient Calibration Algorithm
-> for Large Camera Networks", IEEE ICRA 2024.*
-
 ### 2. Edge computing
 
 **[`vican_on_docker`](https://github.com/sipg-isr/vican_on_docker)** — Containerized VICAN, shipping the
@@ -57,19 +54,10 @@ Sentence-BERT, VGGT, MoGe-3, OpenCV), composable from a browser with no central 
 faces, with tools to synthesize occlusions in 300W-LP, BIWI and AFLW2000, pre-trained models and an
 evaluation protocol across occlusion levels.
 
-> *J. Celestino, M. Marques, J. C. Nascimento, J. P. Costeira, "2D image head pose estimation via latent
-> space regression under occlusion settings", Pattern Recognition, 137:109288, 2023.*
->
-> *J. Celestino, M. Marques, J. C. Nascimento, "Latent Embedding Clustering for Occlusion Robust Head Pose
-> Estimation", IEEE Int. Conf. on Automatic Face and Gesture Recognition (FG), 2024.*
-
 **[`BlendMimic3D`](https://github.com/sipg-isr/BlendMimic3D)** — A Blender-built synthetic dataset for 3D
 human pose estimation under occlusion (128 videos, 4 views, 3 subjects, 14 actions, Human3.6M format),
 including a multi-person retail scene with shelves.
 Project page: [blendmimic3d.github.io](https://blendmimic3d.github.io/BlendMimic3D/).
-
-> *F. Lino et al., "3D Human Pose Estimation with Occlusions: Introducing BlendMimic3D Dataset and
-> GCN Refinement", CVPR Workshops 2024.*
 
 **[`ID-ControlNet`](https://github.com/sipg-isr/ID-ControlNet)** — Identity-preserving face inpainting, in
 which a ControlNet-style branch injects ArcFace identity embeddings into a frozen latent diffusion model so
@@ -77,16 +65,10 @@ occluded faces are reconstructed as the right person.
 *In retail:* both for faces partially occluded in ceiling views and for controlling what identity
 information a model retains — central to privacy-compliant processing.
 
-> *J. Santos, C. Santiago, M. Marques, "Face Inpainting with Identity Preserving Latent Diffusion Models",
-> arXiv:2605.16696, 2026.*
-
 **[`cycling_subjective_safety`](https://github.com/sipg-isr/cycling_subjective_safety)** — **PCS-Net**, a
 Siamese CNN that learns perceived safety of cycling environments from human pairwise image comparisons.
 *Not a retail application, but it transfers directly:* the same learning-to-rank formulation can score
 store layouts, aisles or storefronts by shoppers' perceived comfort, from images alone.
-
-> *M. Costa, M. Marques, C. L. Azevedo, F. W. Siebert, F. Moura, "Which Cycling Environment Appears
-> Safer? Learning Cycling Safety Perceptions From Pairwise Image Comparisons", IEEE T-ITS, 26(2), 2025.*
 
 **[`Eyetracking-cycling-safety-perception`](https://github.com/sipg-isr/Eyetracking-cycling-safety-perception)** —
 **EG-PCS-Net**, a Siamese Vision Transformer whose self-attention is supervised with human eye-tracking
@@ -95,38 +77,23 @@ comparisons and 2,720 gaze maps ([Zenodo](https://doi.org/10.5281/zenodo.2124245
 *Not a retail application, but it transfers directly:* gaze-aligned attention yields interpretable models
 of what draws attention on a shelf, and an auditable answer to why a model decided what it did.
 
-> *L. Perdigão, M. Costa, C. Santiago, M. Marques, "Learning to See Like Humans: Gaze-Aligned Cycling
-> Safety Prediction", IEEE ITSC 2026.*
-
 ### 4. Representation and continual learning
 
 **[`hyper`](https://github.com/gabmoreira/hyper)** — Hyperbolic embeddings for hierarchical recognition,
 showing that the gains over Euclidean space come from the geometry of the hierarchy itself rather than from
 curvature alone — the starting point for the subspace representations below.
 
-> *G. Moreira, M. Marques, J. P. Costeira, A. Hauptmann, "Hyperbolic vs Euclidean Embeddings in Few-Shot
-> Learning: Two Sides of the Same Coin", IEEE/CVF WACV 2024.*
-
 **[`visualsemantic-subspaces`](https://github.com/sipg-isr/visualsemantic-subspaces)** — A nuclear-norm
 loss that aligns image embeddings with label subspaces in a Boolean lattice, representing negation as an
 orthogonal complement and fixing a known weakness of CLIP-style models.
-
-> *G. Moreira, M. Marques, J. P. Costeira, A. G. Hauptmann, "Learning Visual-Semantic Subspace
-> Representations", AISTATS 2025.*
 
 **[`subembed`](https://github.com/sipg-isr/subembed)** — Concepts embedded as linear subspaces, where
 generality is dimension, hierarchy is inclusion and logical composition is linear algebra, learned
 end-to-end through differentiable soft projection matrices.
 
-> *G. Moreira, Z. Marinho, M. Marques, J. P. Costeira, C. Xiong, "Native Hierarchical and Compositional
-> Representations with Subspace Embeddings", ACM SIGKDD (KDD) 2026.*
-
 **[`spectralguidance`](https://github.com/sipg-isr/spectralguidance)** — Training-free control of diffusion
 models by projecting guidance signals onto a learned spectral basis, improving conditional accuracy by 37
 percentage points on CIFAR-10 while sampling 4× faster.
-
-> *G. Moreira, M. Marques, J. P. Costeira, C. Xiong, "Spectral Guidance for Flexible and Efficient
-> Control of Diffusion Models", ICML 2026.*
 
 ---
 
