@@ -10,12 +10,12 @@ within the **PT Smart Retail** agenda.
 
 ## The project
 
-**PT Smart Retail** is a mobilizing agenda for business innovation funded by the Portuguese Recovery and
-Resilience Plan (PRR) and led by **[Sensei](https://www.sensei.tech)**. It brings together industrial,
-technological, scientific and end-user partners to design, demonstrate and industrialize a new generation
-of autonomous retail formats — autonomous stores, modular pods and smart cabinets — together with the
-technologies that support them. Our part is the computer vision and machine learning stack that lets a
-store understand what happens inside it.
+**PT Smart Retail** is an agenda for business innovation funded by the Portuguese Recovery and Resilience
+Plan (PRR) and led by **[Sensei](https://www.sensei.tech)**. It brings together industrial, technological,
+scientific and end-user partners to design, demonstrate and industrialize a new generation of autonomous
+retail formats — autonomous stores, modular pods and smart cabinets — together with the technologies that
+support them. Our part is the computer vision and machine learning stack that lets a store understand what
+happens inside it.
 
 ## Our contribution
 
