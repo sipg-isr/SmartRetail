@@ -35,8 +35,8 @@ model already knows.
 ### 1. Network camera calibration
 
 **[`vican`](https://github.com/sipg-isr/vican)** — A primal–dual bipartite pose-graph solver that
-calibrates networks of thousands of cameras from ArUco marker observations in seconds instead of hours,
-because its cost scales with the number of cameras rather than the number of images.
+calibrates networks of thousands of cameras from ArUco marker observations in seconds instead of hours.
+Its cost scales with the number of cameras rather than the number of images.
 
 ### 2. Edge computing
 
@@ -81,7 +81,7 @@ of what draws attention on a shelf, and an auditable answer to why a model decid
 
 **[`hyper`](https://github.com/gabmoreira/hyper)** — Hyperbolic embeddings for hierarchical recognition,
 showing that the gains over Euclidean space come from the geometry of the hierarchy itself rather than from
-curvature alone — the starting point for the subspace representations below.
+curvature alone.
 
 **[`visualsemantic-subspaces`](https://github.com/sipg-isr/visualsemantic-subspaces)** — A nuclear-norm
 loss that aligns image embeddings with label subspaces in a Boolean lattice, representing negation as an
@@ -106,7 +106,7 @@ Most of these algorithms also run as ready-to-use pipelines on our open-source p
 
 ## Funding
 
-This work was carried out under the **PT Smart Retail** mobilizing agenda, financed by the **Recovery and
-Resilience Plan (PRR)** and by the **European Union — NextGenerationEU**.
+This work was carried out under the **PT Smart Retail** agenda, financed by the **Recovery and Resilience
+Plan (PRR)** and by the **European Union — NextGenerationEU**.
 
 ![Funded by the Recovery and Resilience Plan (PRR), República Portuguesa and the European Union — NextGenerationEU](prr.jpg)
