@@ -110,5 +110,5 @@ This work was carried out under the **PT Smart Retail** agenda, financed by the 
 Plan (PRR)** and by the **European Union — NextGenerationEU**.
 
 <p align="center">
-  <img src="prr.jpg" />
+  <img src="prr.jpg" alt="Funded by the Recovery and Resilience Plan (PRR), República Portuguesa and the European Union — NextGenerationEU"/>
 </p>
