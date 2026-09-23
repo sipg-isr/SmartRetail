@@ -109,4 +109,6 @@ Most of these algorithms also run as ready-to-use pipelines on our open-source p
 This work was carried out under the **PT Smart Retail** agenda, financed by the **Recovery and Resilience
 Plan (PRR)** and by the **European Union — NextGenerationEU**.
 
-![Funded by the Recovery and Resilience Plan (PRR), República Portuguesa and the European Union — NextGenerationEU](prr.jpg)
+<p align="center">
+  <img src="prr.jpg" />
+</p>
