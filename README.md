@@ -44,7 +44,7 @@ Its cost scales with the number of cameras rather than the number of images.
 object-calibration and camera-pose-estimation entry points plus ArUco and multi-camera configuration
 helpers as a dependency-free service deployable on store hardware.
 
-**[`boxes-WebUI`](https://github.com/sipg-isr/boxes-WebUI)** — The web layer of **boxes**, a fleet of
+**[`VisionIST`](https://github.com/sipg-isr/VisionIST)** — The web layer of **VisionIST**, a fleet of
 independent Dockerized inference services sharing a gRPC protocol (YOLOv8, TAPNext, LangSAM, CLIP,
 Sentence-BERT, VGGT, MoGe-3, OpenCV), composable from a browser with no central orchestrator.
 
